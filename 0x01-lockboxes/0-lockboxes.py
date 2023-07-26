@@ -3,6 +3,7 @@
    First box is always open
 """
 
+
 def canUnlockAll(boxes):
     """Check if all boxes can be opened"""
     boxes_len = len(boxes)
