@@ -19,14 +19,15 @@ if __name__ == "__main__":
         ln = 0
         for line in sys.stdin:
             line = line.split()
-            file_size = line[-1]
-            code = line[-2]
-            total_size += int(file_size)
-            if code in status_codes:
-                ln += 1
-                status_codes[code] += 1
-                if ln % 10 == 0:
-                    print_metrics(total_size, status_codes)
+            if len(line) > 6:
+                file_size = line[-1]
+                code = line[-2]
+                total_size += int(file_size)
+                if code in status_codes:
+                    ln += 1
+                    status_codes[code] += 1
+                    if ln % 10 == 0:
+                        print_metrics(total_size, status_codes)
     except KeyboardInterrupt:
         print_metrics(total_size, status_codes)
         raise
