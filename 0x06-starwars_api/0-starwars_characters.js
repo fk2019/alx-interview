@@ -11,7 +11,7 @@ request(url, (err, response, body) => {
         if (promiseErr) reject(promiseErr);
         resolve(JSON.parse(dataBody).name);
       });
-    }),
+    })
   );
   Promise.all(dataPromise)
     .then((name) => console.log(name.join('\n')))
