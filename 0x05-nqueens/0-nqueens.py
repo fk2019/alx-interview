@@ -42,7 +42,7 @@ class NQueens():
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print('usage: nqueens N')
+        print('Usage: nqueens N')
         exit(1)
     try:
         n = int(sys.argv[1])
