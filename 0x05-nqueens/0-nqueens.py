@@ -5,9 +5,6 @@ in an n * n board
 import sys
 
 
-n = int(sys.argv[1])
-
-
 class NQueens():
     """NQueens class"""
     def solveNQueens(self, n):
@@ -43,7 +40,19 @@ class NQueens():
         return b
 
 
-s = NQueens()
-sol = s.solveNQueens(n)
-for i in sol:
-    print(i)
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print('usage: nqueens N')
+        exit(1)
+    try:
+        n = int(sys.argv[1])
+    except ValueError:
+        print('N must be a number')
+        exit(1)
+    if n < 4:
+        print('N must be at least 4')
+        exit(1)
+    nq = NQueens()
+    sol = nq.solveNQueens(n)
+    for i in sol:
+        print(i)
