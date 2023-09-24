@@ -1,42 +1,43 @@
 #!/usr/bin/python3
-"""Is winner method"""
+"""Determine the winner"""
+
+
+def check_prime(n):
+    """Check for prime n"""
+    for i in range(2, int(n ** 0.5) + 1):
+        if not n % i:
+            return False
+    return True
+
+
+def add_prime(n, primes):
+    """Add prime"""
+    last_prime = primes[-1]
+    if n > last_prime:
+        for i in range(last_prime + 1, n + 1):
+            if check_prime(i):
+                primes.append(i)
+            else:
+                primes.append(0)
 
 
 def isWinner(x, nums):
-    """Determine who is winner"""
-    def is_prime(num):
-        """is prime method"""
-        if num <= 1:
-            return False
-        if num == 2:
-            return True
-        if num % 2 == 0:
-            return False
-        for i in range(3, int(num**0.5) + 1, 2):
-            if num % i == 0:
-                return False
-        return True
+    """Checks for winner"""
+    score = {"Maria": 0, "Ben": 0}
+    primes = [0, 0, 2]
+    add_prime(max(nums), primes)
+    for round in range(x):
+        _sum = sum((i != 0 and i <= nums[round])
+                   for i in primes[:nums[round] + 1])
+        if (_sum % 2):
+            winner = "Maria"
+        else:
+            winner = "Ben"
+        if winner:
+            score[winner] += 1
 
-    def play_game(n):
-        """play game method"""
-        if n <= 1:
-            return "Ben"  # Ben wins if n is 0 or 1
-        elif n % 2 == 0:
-            return "Maria"  # Maria wins if n is even
-
-        return "Ben"  # Otherwise, Ben wins
-
-    winners = []
-
-    for n in nums:
-        winners.append(play_game(n))
-
-    maria_wins = winners.count("Maria")
-    ben_wins = winners.count("Ben")
-
-    if maria_wins > ben_wins:
+    if score["Maria"] > score["Ben"]:
         return "Maria"
-    elif ben_wins > maria_wins:
+    elif score["Ben"] > score["Maria"]:
         return "Ben"
-    else:
-        return None
+    return None
