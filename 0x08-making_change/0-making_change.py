@@ -1,15 +1,25 @@
 #!/usr/bin/python3
-"""Return minimum number of coins needed to for a given total
+"""Change comes from within
 """
+import sys
 
 
 def makeChange(coins, total):
-    change_list = [float('inf')] * (total + 1)
-    change_list[0] = 0
-
-    for coin in coins:
-        for amount in range(coin, total + 1):
-            change_list[amount] = min(change_list[amount],
-                                      change_list[amount - coin] + 1)
-
-    return change_list[total] if change_list[total] != float('inf') else -1
+    """Return fewest number of coins needd to make toatl"""
+    def minCoins(total):
+        """Recursive call for sub problems"""
+        if total == 0:
+            return 0
+        if dp[total] != -1:
+            return dp[total]
+        res = sys.maxsize
+        for coin in coins:
+            if coin <= total:
+                sub_res = minCoins(total - coin)
+                if sub_res != sys.maxsize and sub_res + 1 < res:
+                    res = sub_res + 1
+        dp[total] = res
+        return res
+    dp = [-1] * (total + 1)
+    result = minCoins(total)
+    return result if result != sys.maxsize else -1
